@@ -25748,7 +25748,42 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/Movie.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Movie = function Movie(_ref) {
+  var movie = _ref.movie;
+  if (!movie) return null;
+  var Title = movie.Title,
+      Year = movie.Year,
+      Genre = movie.Genre,
+      Actors = movie.Actors,
+      Poster = movie.Poster,
+      Plot = movie.Plot;
+  return _react.default.createElement("div", {
+    className: "media content-container"
+  }, _react.default.createElement("div", {
+    className: "img"
+  }, _react.default.createElement("img", {
+    src: Poster,
+    alt: "poster-image"
+  })), _react.default.createElement("div", {
+    className: "content"
+  }, _react.default.createElement("h3", null, Title), _react.default.createElement("p", null, "Year: ", Year), _react.default.createElement("p", null, "Genre: ", Genre), _react.default.createElement("p", null, "Actors: ", Actors), _react.default.createElement("p", null, "Summary: ", Plot)));
+};
+
+var _default = Movie;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Search.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25770,13 +25805,118 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Search =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Search, _Component);
+
+  function Search() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, Search);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Search)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      movieQuery: ''
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updateMovieQuery", function (event) {
+      _this.setState({
+        movieQuery: event.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleKeyPress", function (event) {
+      if (event.key === 'Enter') {
+        _this.searchMovie();
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "searchMovie", function () {
+      _this.props.searchMovie(_this.state.movieQuery);
+    });
+
+    return _this;
+  }
+
+  _createClass(Search, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "content-container"
+      }, _react.default.createElement("input", {
+        placeholder: "Search for a Movie",
+        onChange: this.updateMovieQuery,
+        onKeyPress: this.handleKeyPress
+      }), _react.default.createElement("button", {
+        onClick: this.searchMovie
+      }, "Search"));
+    }
+  }]);
+
+  return Search;
+}(_react.Component);
+
+var _default = Search;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Movie = _interopRequireDefault(require("./Movie"));
+
+var _Search = _interopRequireDefault(require("./Search"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//https://www.omdbapi.com/?t=Titanic&apikey=55eb6564
+var API_ADDRESS = 'https://www.omdbapi.com/';
+var API_KEY = '55eb6564';
 
 var App =
 /*#__PURE__*/
@@ -25784,15 +25924,55 @@ function (_Component) {
   _inherits(App, _Component);
 
   function App() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      movie: null
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "searchMovie", function (movieQuery) {
+      fetch("".concat(API_ADDRESS, "/?t=").concat(movieQuery, "&apikey=").concat(API_KEY, "&plot=full")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (json.Title != null) {
+          var movie = json;
+
+          _this.setState({
+            movie: movie
+          });
+        }
+      }).catch(function (error) {
+        return console.log('Error:', error.message);
+      });
+    });
+
+    return _this;
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.searchMovie('Guardians of the Galaxy');
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "React App");
+      console.log('this.state', this.state);
+      return _react.default.createElement("div", null, _react.default.createElement("h2", null, "NotFLIX"), _react.default.createElement(_Search.default, {
+        searchMovie: this.searchMovie
+      }), _react.default.createElement(_Movie.default, {
+        movie: this.state.movie
+      }));
     }
   }]);
 
@@ -25801,7 +25981,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Movie":"components/Movie.js","./Search":"components/Search.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -25915,7 +26095,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51171" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57592" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
