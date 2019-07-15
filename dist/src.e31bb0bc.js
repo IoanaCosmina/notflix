@@ -25762,13 +25762,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Movie = function Movie(_ref) {
   var movie = _ref.movie;
-  if (!movie) return null;
-  var Title = movie.Title,
-      Year = movie.Year,
-      Genre = movie.Genre,
-      Actors = movie.Actors,
-      Poster = movie.Poster,
-      Plot = movie.Plot;
+  if (!movie.movieInfo) return null;
+  var _movie$movieInfo = movie.movieInfo,
+      Title = _movie$movieInfo.Title,
+      Year = _movie$movieInfo.Year,
+      Genre = _movie$movieInfo.Genre,
+      Actors = _movie$movieInfo.Actors,
+      Poster = _movie$movieInfo.Poster,
+      Plot = _movie$movieInfo.Plot;
+
+  if (movie.foundResult === false) {
+    return _react.default.createElement("div", {
+      className: "content-container empty"
+    }, _react.default.createElement("p", null, "There were no results for this search."));
+  }
+
   return _react.default.createElement("div", {
     className: "media content-container"
   }, _react.default.createElement("div", {
@@ -25937,7 +25945,10 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      movie: null
+      movie: {
+        movieInfo: null,
+        foundResult: false
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "searchMovie", function (movieQuery) {
@@ -25948,7 +25959,17 @@ function (_Component) {
           var movie = json;
 
           _this.setState({
-            movie: movie
+            movie: {
+              movieInfo: movie,
+              foundResult: true
+            }
+          });
+        } else {
+          _this.setState({
+            movie: {
+              movieInfo: {},
+              foundResult: false
+            }
           });
         }
       }).catch(function (error) {
@@ -26095,7 +26116,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57592" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49905" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

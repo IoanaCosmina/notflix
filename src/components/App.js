@@ -7,7 +7,12 @@ const API_ADDRESS = 'https://www.omdbapi.com/';
 const API_KEY = '55eb6564';
 
 class App extends Component {
-    state = { movie: null };
+    state = {
+        movie: {
+            movieInfo: null,
+            foundResult: false
+        }
+    };
 
     componentDidMount() {
         this.searchMovie('Guardians of the Galaxy');
@@ -19,7 +24,19 @@ class App extends Component {
             .then(json => {
                 if (json.Title != null) {
                     const movie = json;
-                    this.setState({ movie });
+                    this.setState({
+                        movie: {
+                            movieInfo: movie,
+                            foundResult: true
+                        }
+                    });
+                } else {
+                    this.setState({
+                        movie: {
+                            movieInfo: {},
+                            foundResult: false
+                        }
+                    });
                 }
             })
             .catch(error => console.log('Error:', error.message));
